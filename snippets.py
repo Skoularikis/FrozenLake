@@ -105,6 +105,7 @@ class FrozenLake(Environment):
         
     def p(self, next_state, state, action):
         # TODO:
+        print("hey")
         raise NotImplementedError()
     
     def r(self, next_state, state, action):
