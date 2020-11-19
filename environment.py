@@ -17,7 +17,6 @@ class EnvironmentModel:
         p = [self.p(ns, state, action) for ns in range(self.n_states)]
         next_state = self.random_state.choice(self.n_states, p=p)
         reward = self.r(next_state, state, action)
-
         return next_state, reward
 
 

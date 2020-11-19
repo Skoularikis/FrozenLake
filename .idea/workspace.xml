@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="76639d2d-8b2f-4548-add6-feb828949941" name="Default Changelist" comment="Splitted snippets.py into smaller classes.&#10;Added implementation for frozen_lake.py">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/environment.py" beforeDir="false" afterPath="$PROJECT_DIR$/environment.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frozen_lake.py" beforeDir="false" afterPath="$PROJECT_DIR$/frozen_lake.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +42,28 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager" selected="Python.main">
+    <configuration name="asd" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Assignment 2" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/asd.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="environment" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Assignment 2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -85,6 +108,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="gym_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Assignment 2" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/gym_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Assignment 2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -110,6 +155,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.asd" />
+        <item itemvalue="Python.gym_test" />
         <item itemvalue="Python.frozen_lake" />
         <item itemvalue="Python.environment" />
       </list>
@@ -125,7 +172,7 @@
       <updated>1605791874608</updated>
       <workItem from="1605791875726" duration="1136000" />
       <workItem from="1605793044512" duration="362000" />
-      <workItem from="1605793415234" duration="2682000" />
+      <workItem from="1605793415234" duration="9270000" />
     </task>
     <servers />
   </component>
@@ -137,46 +184,58 @@
     <option name="LAST_COMMIT_MESSAGE" value="Splitted snippets.py into smaller classes.&#10;Added implementation for frozen_lake.py" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2418" y="88" key="CommitChangelistDialog2" timestamp="1605792337393">
+    <state x="2334" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605807215903">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2418" y="88" key="CommitChangelistDialog2/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605792337393" />
+    <state x="2334" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605807215903" />
+    <state x="2418" y="88" key="CommitChangelistDialog2" timestamp="1605805794289">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2418" y="88" key="CommitChangelistDialog2/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605805794289" />
+    <state width="1275" height="466" key="DebuggerActiveHint" timestamp="1605811872791">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1275" height="466" key="DebuggerActiveHint/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605811872791" />
     <state x="2660" y="275" key="FileChooserDialogImpl" timestamp="1605798096372">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2660" y="275" key="FileChooserDialogImpl/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605798096372" />
-    <state width="1877" height="233" key="GridCell.Tab.0.bottom" timestamp="1605794864917">
+    <state width="1877" height="185" key="GridCell.Tab.0.bottom" timestamp="1605812389334">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="233" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605794864917" />
-    <state width="1877" height="233" key="GridCell.Tab.0.center" timestamp="1605794864917">
+    <state width="1877" height="185" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605812389334" />
+    <state width="1877" height="185" key="GridCell.Tab.0.center" timestamp="1605812389334">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="233" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605794864917" />
-    <state width="1877" height="233" key="GridCell.Tab.0.left" timestamp="1605794864917">
+    <state width="1877" height="185" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605812389334" />
+    <state width="1877" height="185" key="GridCell.Tab.0.left" timestamp="1605812389334">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="233" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605794864917" />
-    <state width="1877" height="233" key="GridCell.Tab.0.right" timestamp="1605794864917">
+    <state width="1877" height="185" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605812389334" />
+    <state width="1877" height="185" key="GridCell.Tab.0.right" timestamp="1605812389334">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="233" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605794864917" />
-    <state width="1877" height="220" key="GridCell.Tab.1.bottom" timestamp="1605794775144">
+    <state width="1877" height="185" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605812389334" />
+    <state width="1877" height="185" key="GridCell.Tab.1.bottom" timestamp="1605812389334">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="220" key="GridCell.Tab.1.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605794775144" />
-    <state width="1877" height="220" key="GridCell.Tab.1.center" timestamp="1605794775144">
+    <state width="1877" height="185" key="GridCell.Tab.1.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605812389334" />
+    <state width="1877" height="185" key="GridCell.Tab.1.center" timestamp="1605812389334">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="220" key="GridCell.Tab.1.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605794775144" />
-    <state width="1877" height="220" key="GridCell.Tab.1.left" timestamp="1605794775144">
+    <state width="1877" height="185" key="GridCell.Tab.1.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605812389334" />
+    <state width="1877" height="185" key="GridCell.Tab.1.left" timestamp="1605812389334">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="220" key="GridCell.Tab.1.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605794775144" />
-    <state width="1877" height="220" key="GridCell.Tab.1.right" timestamp="1605794775144">
+    <state width="1877" height="185" key="GridCell.Tab.1.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605812389334" />
+    <state width="1877" height="185" key="GridCell.Tab.1.right" timestamp="1605812389334">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="220" key="GridCell.Tab.1.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605794775144" />
+    <state width="1877" height="185" key="GridCell.Tab.1.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605812389334" />
+    <state x="2381" y="165" key="SettingsEditor" timestamp="1605807191424">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2381" y="165" key="SettingsEditor/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605807191424" />
     <state x="2472" y="253" key="Vcs.Push.Dialog.v2" timestamp="1605792788240">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
@@ -186,9 +245,42 @@
     </state>
     <state x="2697" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605792239586" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/asd.py</url>
+          <line>41</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/asd.py</url>
+          <line>43</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/asd.py</url>
+          <line>22</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/environment.py</url>
+          <line>19</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="self._p" />
+      </configuration>
+    </watches-manager>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Assignment_2$environment.coverage" NAME="environment Coverage Results" MODIFIED="1605793651354" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Assignment_2$frozen_lake.coverage" NAME="frozen_lake Coverage Results" MODIFIED="1605793773608" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Assignment_2$main.coverage" NAME="main Coverage Results" MODIFIED="1605794864911" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Assignment_2$gym_test.coverage" NAME="gym_test Coverage Results" MODIFIED="1605807203442" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Assignment_2$main.coverage" NAME="main Coverage Results" MODIFIED="1605812328583" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Assignment_2$asd.coverage" NAME="asd Coverage Results" MODIFIED="1605808339809" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -19,18 +19,21 @@ class FrozenLake(Environment):
         seed: A seed to control the random number generator (optional)
         """
         # start (&), frozen (.), hole (#), goal ($)
+        # self.lake = np.zeros(np.array(lake).shape)
         self.lake = np.array(lake)
         self.lake_flat = self.lake.reshape(-1)
-
         self.slip = slip
-
         n_states = self.lake.size + 1
         n_actions = 4
-
         pi = np.zeros(n_states, dtype=float)
         pi[np.where(self.lake_flat == '&')[0]] = 1.0
-
         self.absorbing_state = n_states - 1
+
+        # self.lake[1,1]=1
+        # self.lake[3,0]=1
+        # self.lake[1,3]=1
+        # self.lake[2,3]=1
+        # self.goal = self.lake[3,3] = 1
 
         # TODO:
         Environment.__init__(self, n_states, 4, max_steps, pi, seed)
@@ -52,10 +55,17 @@ class FrozenLake(Environment):
                 # else:
                 #     next_state = (state[0] + action[0], state[1] + action[1])
 
-                next_state = (state[0] + action[0], state[1] + action[1])
                 # If next_state is not valid, default to current state index
+
+                # if state_index == 5 or state_index == 7 or state_index == 11 or state_index == 12:
+                #     self._p[next_state_index, state_index, action_index] = 0.0
+                # else:
+
+                next_state = (state[0] + action[0], state[1] + action[1])
                 next_state_index = self.stoi.get(next_state, state_index)
+
                 self._p[next_state_index, state_index, action_index] = 1.0
+
         print(self._p)
 
 
