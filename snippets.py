@@ -2,7 +2,7 @@
 
 import numpy as np
 import contextlib
-
+from itertools import product
 # Configures numpy print options
 @contextlib.contextmanager
 def _printoptions(*args, **kwargs):
@@ -93,8 +93,31 @@ class FrozenLake(Environment):
         self.absorbing_state = n_states - 1
 
         # TODO:
-        Environment.__init__(self, n_states, n_actions, max_steps, pi, seed)
-        print("Game OVER!!!!! END OF EXERCISE 100/100 TERMINATOR IS HERE")
+        # Up, down, left, right, stay.
+        self.actions = [(-1, 0), (0, -1), (1, 0), (0, 1), (0, 0)]
+
+        self.itos = list(product(range(self.lake.shape[0]), range(self.lake.shape[1])))
+        self.stoi = {s: i for (i, s) in enumerate(self.itos)}
+
+        self._p = np.zeros((n_states, n_states, 5))
+
+        for state_index, state in enumerate(self.itos):
+            for action_index, action in enumerate(self.actions):
+                # rnd = np.random.rand()
+                # if (rnd < 0.1):
+                #     print("slipped")
+                #     rnd_action = np.random.randint(0, 4)
+                #     next_state = (state[0] + self.actions[rnd_action][0], state[1] + self.actions[rnd_action][1])
+                # else:
+                #     next_state = (state[0] + action[0], state[1] + action[1])
+
+                next_state = (state[0] + action[0], state[1] + action[1])
+                # If next_state is not valid, default to current state index
+                next_state_index = self.stoi.get(next_state, state_index)
+                self._p[next_state_index, state_index, action_index] = 1.0
+
+        Environment.__init__(self, n_states, 5, max_steps, pi, seed)
+
         
     def step(self, action):
         state, reward, done = Environment.step(self, action)
@@ -105,12 +128,14 @@ class FrozenLake(Environment):
         
     def p(self, next_state, state, action):
         # TODO:
-        print("hey test 3")
-        raise NotImplementedError()
+        return self._p[next_state, state, action]
+
     
     def r(self, next_state, state, action):
         # TODO:
-        raise NotImplementedError()
+        if action != 4:
+            return 0.0
+        return self.lake[self.itos[state]]
    
     def render(self, policy=None, value=None):
         if policy is None:
@@ -137,8 +162,8 @@ class FrozenLake(Environment):
                 print(value[:-1].reshape(self.lake.shape))
                 
 def play(env):
-    # up, left, bottom, right
-    actions = ['w', 'a', 's', 'd']
+    # up, left, bottom, right, stay
+    actions = ['w', 'a', 's', 'd', 'st']
 
     state = env.reset()
     env.render()
