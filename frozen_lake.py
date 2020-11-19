@@ -1,3 +1,4 @@
+import contextlib
 from itertools import product
 
 import numpy as np
@@ -32,7 +33,8 @@ class FrozenLake(Environment):
         self.absorbing_state = n_states - 1
 
         # TODO:
-        # Up, down, left, right, stay.
+        Environment.__init__(self, n_states, 4, max_steps, pi, seed)
+        # up, left, bottom, right, stay
         self.actions = [(-1, 0), (0, -1), (1, 0), (0, 1), (0, 0)]
 
         self.itos = list(product(range(self.lake.shape[0]), range(self.lake.shape[1])))
@@ -54,8 +56,8 @@ class FrozenLake(Environment):
                 # If next_state is not valid, default to current state index
                 next_state_index = self.stoi.get(next_state, state_index)
                 self._p[next_state_index, state_index, action_index] = 1.0
+        print(self._p)
 
-        Environment.__init__(self, n_states, 5, max_steps, pi, seed)
 
     def step(self, action):
         state, reward, done = Environment.step(self, action)
@@ -71,7 +73,7 @@ class FrozenLake(Environment):
     def r(self, next_state, state, action):
         # TODO:
         if action != 4:
-            return 0.0
+            return 0
         return self.lake[self.itos[state]]
 
     def render(self, policy=None, value=None):
@@ -95,5 +97,15 @@ class FrozenLake(Environment):
             print(policy.reshape(self.lake.shape))
 
             print('Value:')
-            with _printoptions(precision=3, suppress=True):
+            with self._printoptions(precision=3, suppress=True):
                 print(value[:-1].reshape(self.lake.shape))
+
+    # Configures numpy print options
+    @contextlib.contextmanager
+    def _printoptions(*args, **kwargs):
+        original = np.get_printoptions()
+        np.set_printoptions(*args, **kwargs)
+        try:
+            yield
+        finally:
+            np.set_printoptions(**original)

@@ -2,8 +2,8 @@ from frozen_lake import FrozenLake
 
 
 def play(env):
-    # up, left, bottom, right, stay
-    actions = ['w', 'a', 's', 'd', 'st']
+    # up, left, bottom, right
+    actions = ['w', 'a', 's', 'd']
 
     state = env.reset()
     env.render()
@@ -17,7 +17,7 @@ def play(env):
         state, r, done = env.step(actions.index(c))
 
         env.render()
-        print('Reward: {0}.'.format(r))
+        print('Reward: {0}'.format(r))
 
 def main():
     seed = 0
