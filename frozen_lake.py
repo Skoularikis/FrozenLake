@@ -53,15 +53,23 @@ class FrozenLake(Environment):
 
                 # If next_state is not valid, default to current state index
                 next_state_index = self.stoi.get(next_state, state_index)
-                self._p[next_state_index, state_index, action_index] = 1.0
-                # if next_state_index == state_index:
-                #     self._p[next_state_index, state_index, action_index] = 1
-                # else:
-                #     self._p[next_state_index, state_index, action_index] = 0.9
+                # self._p[next_state_index, state_index, action_index] = 1.0
+                if next_state_index == state_index:
+                    self._p[next_state_index, state_index, action_index] = 1
+                else:
+                    self._p[next_state_index, state_index, action_index] = 0.9
                 # for idx,i in enumerate(self._p[next_state_index, state_index]):
                 #     print(idx,i)
+        for index in range(0,len(self._p)):
+            a = [p[index] for p in self._p]
+            unique, counts = np.unique(a, return_counts=True)
+            my_dict = dict(zip(unique, counts))
+            if (0.9 in my_dict):
+                print(0.1/(my_dict[0.9]-1))
 
-        print(self._p)
+
+
+
 
 
 
