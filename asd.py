@@ -1,58 +1,55 @@
-import gym
 import numpy as np
-import time, pickle, os
 
-env = gym.make('FrozenLake-v0')
+shape = (4, 4)
+max_steps = shape[0] * shape[1]
+desc = np.zeros(shape)
+desc[shape[0] - 1, 0] = 1
+desc[shape[0] - 1, shape[1] - 1] = 1
 
-epsilon = 0.9
-total_episodes = 10000
-max_steps = 100
+nA = 4
+nS = 4 * 4
+nrow = 4
+ncol = 4
+# isd = np.array(desc == b'S').astype('float64').ravel()
+# isd /= isd.sum()
 
-lr_rate = 0.81
-gamma = 0.96
-
-Q = np.zeros((env.observation_space.n, env.action_space.n))
-
-
-def choose_action(state):
-    action = 0
-    if np.random.uniform(0, 1) < epsilon:
-        action = env.action_space.sample()
-    else:
-        action = np.argmax(Q[state, :])
-    return action
+P = {s: {a: [] for a in range(nA)} for s in range(nS)}
 
 
-def learn(state, state2, reward, action):
-    predict = Q[state, action]
-    target = reward + gamma * np.max(Q[state2, :])
-    Q[state, action] = Q[state, action] + lr_rate * (target - predict)
+def to_s(row, col):
+    return row * 4 + col
 
 
-# Start
-for episode in range(total_episodes):
-    state = env.reset()
-    t = 0
+def inc(row, col, a):
+    if a == 0:
+        col = max(col - 1, 0)
+    elif a == 1:
+        row = min(row + 1, nrow - 1)
+    elif a == 2:
+        col = min(col + 1, ncol - 1)
+    elif a == 3:
+        row = max(row - 1, 0)
+    return (row, col)
 
-    while t < max_steps:
-        env.render()
+def update_probability_matrix(row, col, action):
+    newrow, newcol = inc(row, col, action)
+    newstate = to_s(newrow, newcol)
+    newletter = desc[newrow, newcol]
+    done = bytes(newletter) in b'GH'
+    reward = float(newletter == b'G')
+    return newstate, reward, done
 
-        action = choose_action(state)
-
-        state2, reward, done, info = env.step(action)
-
-        learn(state, state2, reward, action)
-
-        state = state2
-
-        t += 1
-
-        if done:
-            break
-
-        time.sleep(0.1)
-
-print(Q)
-
-with open("frozenLake_qTable.pkl", 'wb') as f:
-    pickle.dump(Q, f)
+for row in range(4):
+    for col in range(4):
+        s = to_s(row, col)
+        for a in range(4):
+            li = P[s][a]
+            letter = desc[row, col]
+            if letter in b'GH':
+                li.append((1.0, s, 0, True))
+            else:
+                for b in [(a - 1) % 4, a, (a + 1) % 4]:
+                    li.append((
+                        1. / 3.,
+                        *update_probability_matrix(row, col, b)
+                    ))

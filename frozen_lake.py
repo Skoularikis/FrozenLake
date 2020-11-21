@@ -37,16 +37,50 @@ class FrozenLake(Environment):
 
         # TODO:
         Environment.__init__(self, n_states, 4, max_steps, pi, seed)
-        # up, left, bottom, right, stay
-        self.actions = [(-1, 0), (0, -1), (1, 0), (0, 1), (0, 0)]
+        # # up, left, bottom, right
+        # actions = ['w', 'a', 's', 'd']
+        # Up, left, down, right.
+        self.actions = [(-1, 0), (0, -1), (1, 0), (0, 1)]
 
         self.itos = list(product(range(self.lake.shape[0]), range(self.lake.shape[1])))
         self.stoi = {s: i for (i, s) in enumerate(self.itos)}
 
-        self._p = np.zeros((n_states, n_states, 5))
+        self._p = np.zeros((n_states, n_states, 4))
 
         for state_index, state in enumerate(self.itos):
             for action_index, action in enumerate(self.actions):
+                next_state = (state[0] + action[0], state[1] + action[1])
+
+                # If next_state is not valid, default to current state index
+                next_state_index = self.stoi.get(next_state, state_index)
+                self._p[next_state_index, state_index, action_index] = 1.0
+                # if next_state_index == state_index:
+                #     self._p[next_state_index, state_index, action_index] = 1
+                # else:
+                #     self._p[next_state_index, state_index, action_index] = 0.9
+                # for idx,i in enumerate(self._p[next_state_index, state_index]):
+                #     print(idx,i)
+
+        print(self._p)
+
+
+
+
+
+
+            # for i in self._p[state_index,state_index]:
+
+
+                # if (action_index == 4):
+                #     self._p[next_state_index, state_index, action_index] = 0.9
+                # else:
+                #     if next_state_index == state_index:
+                #         self._p[next_state_index, state_index, action_index] = 0.1
+                #     else:
+                #         self._p[next_state_index, state_index, action_index] = 0.9
+
+
+
                 # rnd = np.random.rand()
                 # if (rnd < 0.1):
                 #     print("slipped")
@@ -60,25 +94,19 @@ class FrozenLake(Environment):
                 # if state_index == 5 or state_index == 7 or state_index == 11 or state_index == 12:
                 #     self._p[next_state_index, state_index, action_index] = 0.0
                 # else:
+                # a,b,c = 0.9,0.05,0.05
 
-                next_state = (state[0] + action[0], state[1] + action[1])
-                next_state_index = self.stoi.get(next_state, state_index)
-
-                self._p[next_state_index, state_index, action_index] = 1.0
-
-        print(self._p)
 
 
     def step(self, action):
         state, reward, done = Environment.step(self, action)
-
         done = (state == self.absorbing_state) or done
-
         return state, reward, done
 
     def p(self, next_state, state, action):
         # TODO:
-        return self._p[next_state, state, action]
+        v = self._p[next_state, state, action]
+        return v
 
     def r(self, next_state, state, action):
         # TODO:
@@ -89,7 +117,6 @@ class FrozenLake(Environment):
     def render(self, policy=None, value=None):
         if policy is None:
             lake = np.array(self.lake_flat)
-
             if self.state < self.absorbing_state:
                 lake[self.state] = '@'
 

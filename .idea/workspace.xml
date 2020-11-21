@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="76639d2d-8b2f-4548-add6-feb828949941" name="Default Changelist" comment="Splitted snippets.py into smaller classes.&#10;Added implementation for frozen_lake.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd.py" beforeDir="false" afterPath="$PROJECT_DIR$/asd.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/environment.py" beforeDir="false" afterPath="$PROJECT_DIR$/environment.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frozen_lake.py" beforeDir="false" afterPath="$PROJECT_DIR$/frozen_lake.py" afterDir="false" />
     </list>
@@ -18,6 +19,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Pull.Settings">
+    <option name="BRANCH" value="master" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -32,13 +36,14 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../NLP/Assignment 3" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Reinforcement learning/rl" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager" selected="Python.main">
@@ -64,28 +69,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="environment" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Assignment 2" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/environment.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="frozen_lake" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Assignment 2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -100,6 +83,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/frozen_lake.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="gambler" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Assignment 2" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../Reinforcement learning/rl/examples" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../Reinforcement learning/rl/examples/gambler.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -156,9 +161,9 @@
       <list>
         <item itemvalue="Python.main" />
         <item itemvalue="Python.asd" />
+        <item itemvalue="Python.gambler" />
         <item itemvalue="Python.gym_test" />
         <item itemvalue="Python.frozen_lake" />
-        <item itemvalue="Python.environment" />
       </list>
     </recent_temporary>
   </component>
@@ -172,7 +177,7 @@
       <updated>1605791874608</updated>
       <workItem from="1605791875726" duration="1136000" />
       <workItem from="1605793044512" duration="362000" />
-      <workItem from="1605793415234" duration="9270000" />
+      <workItem from="1605793415234" duration="27572000" />
     </task>
     <servers />
   </component>
@@ -188,50 +193,54 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2334" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605807215903" />
+    <state x="2968" y="200" key="#xdebugger.evaluate" timestamp="1605827004120">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2968" y="200" key="#xdebugger.evaluate/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605827004120" />
     <state x="2418" y="88" key="CommitChangelistDialog2" timestamp="1605805794289">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2418" y="88" key="CommitChangelistDialog2/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605805794289" />
-    <state width="1275" height="466" key="DebuggerActiveHint" timestamp="1605811872791">
+    <state width="1434" height="466" key="DebuggerActiveHint" timestamp="1605885666002">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1275" height="466" key="DebuggerActiveHint/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605811872791" />
-    <state x="2660" y="275" key="FileChooserDialogImpl" timestamp="1605798096372">
+    <state width="1434" height="466" key="DebuggerActiveHint/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605885666002" />
+    <state x="2660" y="275" key="FileChooserDialogImpl" timestamp="1605826090524">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2660" y="275" key="FileChooserDialogImpl/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605798096372" />
-    <state width="1877" height="185" key="GridCell.Tab.0.bottom" timestamp="1605812389334">
+    <state x="2660" y="275" key="FileChooserDialogImpl/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605826090524" />
+    <state width="914" height="344" key="GridCell.Tab.0.bottom" timestamp="1605886946829">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="185" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605812389334" />
-    <state width="1877" height="185" key="GridCell.Tab.0.center" timestamp="1605812389334">
+    <state width="914" height="344" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605886946829" />
+    <state width="914" height="344" key="GridCell.Tab.0.center" timestamp="1605886946829">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="185" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605812389334" />
-    <state width="1877" height="185" key="GridCell.Tab.0.left" timestamp="1605812389334">
+    <state width="914" height="344" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605886946829" />
+    <state width="914" height="344" key="GridCell.Tab.0.left" timestamp="1605886946829">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="185" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605812389334" />
-    <state width="1877" height="185" key="GridCell.Tab.0.right" timestamp="1605812389334">
+    <state width="914" height="344" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605886946829" />
+    <state width="914" height="344" key="GridCell.Tab.0.right" timestamp="1605886946829">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="185" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605812389334" />
-    <state width="1877" height="185" key="GridCell.Tab.1.bottom" timestamp="1605812389334">
+    <state width="914" height="344" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605886946829" />
+    <state width="914" height="344" key="GridCell.Tab.1.bottom" timestamp="1605886947990">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="185" key="GridCell.Tab.1.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605812389334" />
-    <state width="1877" height="185" key="GridCell.Tab.1.center" timestamp="1605812389334">
+    <state width="914" height="344" key="GridCell.Tab.1.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605886947990" />
+    <state width="914" height="344" key="GridCell.Tab.1.center" timestamp="1605886947990">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="185" key="GridCell.Tab.1.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605812389334" />
-    <state width="1877" height="185" key="GridCell.Tab.1.left" timestamp="1605812389334">
+    <state width="914" height="344" key="GridCell.Tab.1.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605886947990" />
+    <state width="914" height="344" key="GridCell.Tab.1.left" timestamp="1605886947990">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="185" key="GridCell.Tab.1.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605812389334" />
-    <state width="1877" height="185" key="GridCell.Tab.1.right" timestamp="1605812389334">
+    <state width="914" height="344" key="GridCell.Tab.1.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605886947990" />
+    <state width="914" height="344" key="GridCell.Tab.1.right" timestamp="1605886947990">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="185" key="GridCell.Tab.1.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605812389334" />
+    <state width="914" height="344" key="GridCell.Tab.1.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1605886947990" />
     <state x="2381" y="165" key="SettingsEditor" timestamp="1605807191424">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
@@ -250,37 +259,35 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/asd.py</url>
-          <line>41</line>
-          <option name="timeStamp" value="27" />
+          <line>50</line>
+          <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/asd.py</url>
-          <line>43</line>
-          <option name="timeStamp" value="28" />
+          <url>file://$PROJECT_DIR$/frozen_lake.py</url>
+          <line>108</line>
+          <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/asd.py</url>
-          <line>22</line>
-          <option name="timeStamp" value="29" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/environment.py</url>
-          <line>19</line>
-          <option name="timeStamp" value="36" />
+          <url>file://$PROJECT_DIR$/frozen_lake.py</url>
+          <line>63</line>
+          <option name="timeStamp" value="68" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="self._p" />
+        <watch expression="__py_debug_temp_var_2093978042" />
+        <watch expression="__py_debug_temp_var_1074367448[0]" />
       </configuration>
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Assignment_2$environment.coverage" NAME="environment Coverage Results" MODIFIED="1605793651354" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Assignment_2$frozen_lake.coverage" NAME="frozen_lake Coverage Results" MODIFIED="1605793773608" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Assignment_2$gambler.coverage" NAME="gambler Coverage Results" MODIFIED="1605826049078" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../Reinforcement learning/rl/examples" />
     <SUITE FILE_PATH="coverage/Assignment_2$gym_test.coverage" NAME="gym_test Coverage Results" MODIFIED="1605807203442" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Assignment_2$main.coverage" NAME="main Coverage Results" MODIFIED="1605812328583" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Assignment_2$asd.coverage" NAME="asd Coverage Results" MODIFIED="1605808339809" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Assignment_2$main.coverage" NAME="main Coverage Results" MODIFIED="1605886946692" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Assignment_2$asd.coverage" NAME="asd Coverage Results" MODIFIED="1605831836605" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

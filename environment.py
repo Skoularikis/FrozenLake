@@ -43,6 +43,12 @@ class Environment(EnvironmentModel):
         self.n_steps += 1
         done = (self.n_steps >= self.max_steps)
 
+        rnd = np.random.rand()
+        if rnd < 0.1:
+            print("slipped")
+            action = np.random.randint(0, 4)
+            print(action)
+
         self.state, reward = self.draw(self.state, action)
 
         return self.state, reward, done
