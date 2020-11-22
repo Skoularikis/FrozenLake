@@ -60,10 +60,22 @@ class FrozenLake(Environment):
                     self._p[next_state_index, state_index, action_index] = 0.9
                 # for idx,i in enumerate(self._p[next_state_index, state_index]):
                 #     print(idx,i)
+            a = np.array(self._p[:,state_index])
+            unique, counts = np.unique(self._p[:,state_index], return_counts=True)
+            my_dict = dict(zip(unique, counts))
+            for idx, ai in enumerate(a):
+                if 0.9 in ai:
+                    for qd in range(0, 4):
+                        if 0.9 in a[:, qd] and a[:, qd][idx] == 0.0:
+                            if (0.9 in my_dict):
+                                a[:, qd][idx] = 0.1 / (my_dict[0.9] - 1)
+            self._p[:,state_index] = a
+        print(self._p[:,0])
         # for index in range(0,len(self._p)):
-        a = [p[0] for p in self._p]
-        unique, counts = np.unique(a, return_counts=True)
-        my_dict = dict(zip(unique, counts))
+
+        # for idx in range(0,4):
+        #     print([row[idx] for row in a])
+        # print(np.transpose(a))
         # print(my_dict)
         # if (0.9 in my_dict):
         #     # print(my_dict)
@@ -72,7 +84,6 @@ class FrozenLake(Environment):
         # for vi in v:
         #     if 0.9 in vi:
         #         idx = vi.index(0.9)
-        print(a)
 
 
 
