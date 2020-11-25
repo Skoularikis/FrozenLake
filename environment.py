@@ -15,7 +15,10 @@ class EnvironmentModel:
 
     def draw(self, state, action):
         p = [self.p(ns, state, action) for ns in range(self.n_states)]
-        next_state = self.random_state.choice(self.n_states, p=p)
+        if state == 5 or state == 7 or state == 12 or state == 11 or state == 15:
+            next_state = state
+        else:
+            next_state = self.random_state.choice(self.n_states, p=p)
         reward = self.r(next_state, state, action)
         return next_state, reward
 
@@ -42,12 +45,6 @@ class Environment(EnvironmentModel):
 
         self.n_steps += 1
         done = (self.n_steps >= self.max_steps)
-
-        rnd = np.random.rand()
-        if rnd < 0.1:
-            print("slipped")
-            action = np.random.randint(0, 4)
-            print(action)
 
         self.state, reward = self.draw(self.state, action)
 
