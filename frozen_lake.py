@@ -29,16 +29,9 @@ class FrozenLake(Environment):
         pi[np.where(self.lake_flat == '&')[0]] = 1.0
         self.absorbing_state = n_states - 1
 
-        # self.lake[1,1]=1
-        # self.lake[3,0]=1
-        # self.lake[1,3]=1
-        # self.lake[2,3]=1
-        # self.goal = self.lake[3,3] = 1
-
         # TODO:
         Environment.__init__(self, n_states, 4, max_steps, pi, seed)
-        # # up, left, bottom, right
-        # actions = ['w', 'a', 's', 'd']
+
         # Up, left, down, right.
         self.actions = [(-1, 0), (0, -1), (1, 0), (0, 1)]
 
@@ -51,23 +44,26 @@ class FrozenLake(Environment):
             for action_index, action in enumerate(self.actions):
                 next_state = (state[0] + action[0], state[1] + action[1])
 
-                # If next_state is not valid, default to current state index
-                next_state_index = self.stoi.get(next_state, state_index)
-                # self._p[next_state_index, state_index, action_index] = 1.0
-                if next_state_index == state_index:
-                    self._p[next_state_index, state_index, action_index] = 1
+                if (state_index == 5 or state_index == 7 or state_index == 12 or state_index == 11 or state_index == 15):
+                    self._p[state_index, state_index, action_index] = 1.0
                 else:
-                    self._p[next_state_index, state_index, action_index] = 0.9
+                    # If next_state is not valid, default to current state index
+                    next_state_index = self.stoi.get(next_state, state_index)
+                    # self._p[next_state_index, state_index, action_index] = 1.0
+                    if next_state_index == state_index:
+                        self._p[next_state_index, state_index, action_index] = 1
+                    else:
+                        self._p[next_state_index, state_index, action_index] = 1 - self.slip
 
             a = np.array(self._p[:,state_index])
             unique, counts = np.unique(self._p[:,state_index], return_counts=True)
             my_dict = dict(zip(unique, counts))
             for idx, ai in enumerate(a):
-                if 0.9 in ai:
+                if 1-self.slip in ai:
                     for qd in range(0, 4):
-                        if 0.9 in a[:, qd] and a[:, qd][idx] == 0.0:
-                            if (0.9 in my_dict):
-                                a[:, qd][idx] = 0.1 / (my_dict[0.9] - 1)
+                        if 1-self.slip in a[:, qd] and a[:, qd][idx] == 0.0:
+                            if (1-self.slip in my_dict):
+                                a[:, qd][idx] = self.slip / (my_dict[1-self.slip] - 1)
             self._p[:,state_index] = a
         print(self._p[:,5])
 
@@ -107,9 +103,9 @@ class FrozenLake(Environment):
             policy = np.array([actions[a] for a in policy[:-1]])
             print(policy.reshape(self.lake.shape))
 
-            print('Value:')
-            with self._printoptions(precision=3, suppress=True):
-                print(value[:-1].reshape(self.lake.shape))
+            # print('Value:')
+            # with self._printoptions(precision=3, suppress=True):
+            #     print(value[:-1].reshape(self.lake.shape))
 
     # Configures numpy print options
     @contextlib.contextmanager

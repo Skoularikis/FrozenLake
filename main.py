@@ -7,16 +7,13 @@ BIG_LAKE_COLS = 8
 SMALL_LAKE_ROWS = 4
 BIG_LAKE_ROWS = 4
 
-BIG_LAKE_GOAL = (7,7)
-SMALL_LAKE_GOAL = (3,3)
+BIG_LAKE_GOAL = (7, 7)
+SMALL_LAKE_GOAL = (3, 3)
 
 START = (0, 0)
 
-SMALL_LAKE_ABS = [(1,1),(1,3),(2,3),(3,0)]
-BIG_LAKE_ABS = [(2,3),(3,5),(4,3),(5,1),(5,2),(5,6),(6,1),(6,4),(6,6),(7,3)]
-
-
-
+SMALL_LAKE_ABS = [(1, 1), (1, 3), (2, 3), (3, 0)]
+BIG_LAKE_ABS = [(2, 3), (3, 5), (4, 3), (5, 1), (5, 2), (5, 6), (6, 1), (6, 4), (6, 6), (7, 3)]
 
 
 def play(env):
@@ -47,13 +44,13 @@ def policy_evaluation(env, policy, gamma, theta, max_iterations):
         delta = 0
         for s in range(env.n_states):
             v = value[s]
-            value[s] = sum([env.p(next_s, s, policy[s]) * (env.r(next_s, s, policy[s]) + gamma * value[next_s]) for next_s in range(env.n_states)])
+            value[s] = sum(
+                [env.p(next_s, s, policy[s]) * (env.r(next_s, s, policy[s]) + gamma * value[next_s]) for next_s in
+                 range(env.n_states)])
 
             delta = max(delta, abs(v - value[s]))
-
         if delta < theta:
             break
-
     return value
 
 
@@ -61,8 +58,15 @@ def policy_improvement(env, value, gamma):
     policy = np.zeros(env.n_states, dtype=int)
 
     # TODO:
+    # policy_stable = True
+    # for a in range(env.n_actions):
+    # a = policy[s]
+    # policy[s] = np.argmax([sum([env.p(next_s, s, a) * (env.r(next_s, s, a) + gamma * value[next_s]) for next_s in range(env.n_states)])])
+    # if a != policy[s]:
+    #     policy_stable = False
     for s in range(env.n_states):
-        policy[s] = np.argmax([sum([env.p(next_s, s, a) * (env.r(next_s, s, a) + gamma * value[next_s]) for next_s in range(env.n_states)]) for a in range(env.n_actions)])
+        v = [sum([env.p(next_s, s, a) * (env.r(next_s, s, a) + gamma * value[next_s]) for next_s in range(env.n_states)]) for a in range(env.n_actions)]
+        policy[s] = np.argmax(v)
     return policy
 
 
@@ -73,10 +77,52 @@ def policy_iteration(env, gamma, theta, max_iterations, policy=None):
         policy = np.array(policy, dtype=int)
 
     # TODO:
-    value=[]
-    for i in range(max_iterations):
+    # value = np.zeros(env.n_states, dtype=np.float)
+    # policy_stable = False
+    # while policy_stable==False:
+    #     policy_stable = True
+    #     new_value = policy_evaluation(env, policy, gamma, theta, max_iterations)
+    #     policy = policy_improvement(env, value, gamma)
+    #     for i in range(len(value)):
+    #         if value[i] != new_value[i]:
+    #             policy_stable = False
+    #     value = new_value
+
+
+
+
+    policy_stable = False
+    while policy_stable == False:
+        policy_stable = True
         value = policy_evaluation(env, policy, gamma, theta, max_iterations)
-        policy = policy_improvement(env, value, gamma)
+        new_policy = policy_improvement(env, value, gamma)
+        for i in range(len(new_policy)):
+            if policy[i] != new_policy[i]:
+                policy_stable = False
+        policy = new_policy
+
+
+
+
+
+        # for idx in range(len(policy)):
+        #     if new_policy[idx] != policy[idx]:
+        #         policy_stable = False
+        # policy = new_policy
+        # value = policy_evaluation(env, policy, gamma, theta, max_iterations)
+        # new_policy = policy_improvement(env, value, gamma)
+
+    # while policy_stable == False:
+    #     value = policy_evaluation(env, policy, gamma, theta, max_iterations)
+    #     new_policy, policy_stable = policy_improvement(env, value, gamma)
+    # while np.array_equal(new_policy, policy):
+    #
+    #     if all(new_policy == policy):
+    #         policy = new_policy
+    #         policy_stable = True
+    #     else:
+    #         value = policy_evaluation(env, policy, gamma, theta, max_iterations)
+
     return policy, value
 
 
@@ -93,7 +139,7 @@ def value_iteration(env, gamma, theta, max_iterations, value=None):
             v = value[s]
             value[s] = max([sum(
                 [env.p(next_s, s, a) * (env.r(next_s, s, a) + gamma * value[next_s]) for next_s in range(env.n_states)])
-                            for a in range(env.n_actions)])
+                for a in range(env.n_actions)])
 
             delta = max(delta, np.abs(v - value[s]))
 
@@ -104,7 +150,7 @@ def value_iteration(env, gamma, theta, max_iterations, value=None):
     for s in range(env.n_states):
         policy[s] = np.argmax([sum(
             [env.p(next_s, s, a) * (env.r(next_s, s, a) + gamma * value[next_s]) for next_s in range(env.n_states)]) for
-                               a in range(env.n_actions)])
+            a in range(env.n_actions)])
 
     return policy, value
 
@@ -223,6 +269,7 @@ def linear_q_learning(env, max_episodes, eta, gamma, epsilon, seed=None):
 
     return theta
 
+
 def main():
     seed = 0
 
@@ -247,11 +294,11 @@ def main():
     policy, value = policy_iteration(env, gamma, theta, max_iterations)
     env.render(policy, value)
 
-    # print('')
-    #
-    # print('## Value iteration')
-    # policy, value = value_iteration(env, gamma, theta, max_iterations)
-    # env.render(policy, value)
+    print('')
+
+    print('## Value iteration')
+    policy, value = value_iteration(env, gamma, theta, max_iterations)
+    env.render(policy, value)
     #
     # print('')
     #
