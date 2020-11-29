@@ -192,12 +192,12 @@ def q_learning(env, max_episodes, eta, gamma, epsilon, seed=None):
         terminal = False
 
         while not terminal:
+            
             if random.uniform(0, 1) < epsilon[i]:
-                #a = random.choice(env.n_actions)
-         
-                a = random_state.random_integers(env.n_actions-1)      
+                
+                a = np.argmax(q[s])        
             else:
-                a = np.argmax(q[s])
+                a = np.random.randint(env.n_actions)
  
             next_s, r, terminal = env.step(a) 
             
@@ -308,17 +308,17 @@ def main():
     theta = 0.001
     max_iterations = 100
 
-    print('')
+    # print('')
 
-    print('## Policy iteration')
-    policy, value = policy_iteration(env, gamma, theta, max_iterations)
-    env.render(policy, value)
+    # print('## Policy iteration')
+    # policy, value = policy_iteration(env, gamma, theta, max_iterations)
+    # env.render(policy, value)
 
-    print('')
+    # print('')
 
-    print('## Value iteration')
-    policy, value = value_iteration(env, gamma, theta, max_iterations)
-    env.render(policy, value)
+    # print('## Value iteration')
+    # policy, value = value_iteration(env, gamma, theta, max_iterations)
+    # env.render(policy, value)
     #
     # print('')
     #
