@@ -1,5 +1,6 @@
 from frozen_lake import FrozenLake
 import numpy as np
+import random
 
 BIG_LAKE_ROWS = 8
 BIG_LAKE_COLS = 8
@@ -182,11 +183,30 @@ def q_learning(env, max_episodes, eta, gamma, epsilon, seed=None):
     epsilon = np.linspace(epsilon, 0, max_episodes)
 
     q = np.zeros((env.n_states, env.n_actions))
-
+    
+  
     for i in range(max_episodes):
         s = env.reset()
         # TODO:
+        
+        terminal = False
 
+        while not terminal:
+            if random.uniform(0, 1) < epsilon[i]:
+                #a = random.choice(env.n_actions)
+         
+                a = random_state.random_integers(env.n_actions-1)      
+            else:
+                a = np.argmax(q[s])
+ 
+            next_s, r, terminal = env.step(a) 
+            
+            next_a = np.argmax(q[next_s])                 
+            
+            q[s][a] = q[s][a] + eta[i] * (r + (gamma * q[next_s][next_a]) - q[s][a])
+            
+            s = next_s
+        
     policy = q.argmax(axis=1)
     value = q.max(axis=1)
 
@@ -303,9 +323,9 @@ def main():
     # print('')
     #
     # print('# Model-free algorithms')
-    # max_episodes = 2000
-    # eta = 0.5
-    # epsilon = 0.5
+    max_episodes = 2000
+    eta = 0.5
+    epsilon = 0.5
     #
     # print('')
     #
@@ -315,11 +335,11 @@ def main():
     #
     # print('')
     #
-    # print('## Q-learning')
-    # policy, value = q_learning(env, max_episodes, eta, gamma, epsilon, seed=seed)
-    # env.render(policy, value)
-    #
-    # print('')
+    print('## Q-learning')
+    policy, value = q_learning(env, max_episodes, eta, gamma, epsilon, seed=seed)
+    env.render(policy, value)
+    
+    print('')
     #
     # linear_env = LinearWrapper(env)
     #
