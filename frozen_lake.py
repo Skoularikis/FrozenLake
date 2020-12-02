@@ -65,7 +65,6 @@ class FrozenLake(Environment):
                             if (1-self.slip in my_dict):
                                 a[:, qd][idx] = self.slip / (my_dict[1-self.slip] - 1)
             self._p[:,state_index] = a
-        print(self._p[:,5])
 
     def step(self, action):
         state, reward, done = Environment.step(self, action)

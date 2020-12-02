@@ -169,6 +169,25 @@ def sarsa(env, max_episodes, eta, gamma, epsilon, seed=None):
     for i in range(max_episodes):
         s = env.reset()
         # TODO:
+        terminal = False
+        if random.uniform(0, 1) < epsilon[i]:
+            a = np.argmax(q[s])
+        else:
+            a = np.random.randint(env.n_actions)
+        # TODO:
+        # Select action a for state s according to an e-greedy policy based on Q. by random
+        while not terminal:
+            next_s, r, terminal = env.step(a)
+            if random.uniform(0, 1) < epsilon[i]:
+
+                next_a = np.argmax(q[s])
+            else:
+                next_a = np.random.randint(env.n_actions)
+
+            q[s][a] = q[s][a] + eta[i] * (r + (gamma * q[next_s][next_a]) - q[s][a])
+
+            s = next_s
+            a = next_a
 
     policy = q.argmax(axis=1)
     value = q.max(axis=1)
@@ -181,10 +200,7 @@ def q_learning(env, max_episodes, eta, gamma, epsilon, seed=None):
 
     eta = np.linspace(eta, 0, max_episodes)
     epsilon = np.linspace(epsilon, 0, max_episodes)
-
     q = np.zeros((env.n_states, env.n_actions))
-    
-  
     for i in range(max_episodes):
         s = env.reset()
         # TODO:
@@ -197,14 +213,12 @@ def q_learning(env, max_episodes, eta, gamma, epsilon, seed=None):
                 
                 a = np.argmax(q[s])        
             else:
-                a = np.random.randint(env.n_actions)
+                a = random_state.randint(env.n_actions)
  
-            next_s, r, terminal = env.step(a) 
-            
-            next_a = np.argmax(q[next_s])                 
-            
+            next_s, r, terminal = env.step(a)
+            next_a = np.argmax(q[next_s])
             q[s][a] = q[s][a] + eta[i] * (r + (gamma * q[next_s][next_a]) - q[s][a])
-            
+
             s = next_s
         
     policy = q.argmax(axis=1)
@@ -308,33 +322,33 @@ def main():
     theta = 0.001
     max_iterations = 100
 
-    # print('')
+    print('')
 
-    # print('## Policy iteration')
-    # policy, value = policy_iteration(env, gamma, theta, max_iterations)
-    # env.render(policy, value)
+    print('## Policy iteration')
+    policy, value = policy_iteration(env, gamma, theta, max_iterations)
+    env.render(policy, value)
 
-    # print('')
+    print('')
 
-    # print('## Value iteration')
-    # policy, value = value_iteration(env, gamma, theta, max_iterations)
-    # env.render(policy, value)
-    #
-    # print('')
-    #
-    # print('# Model-free algorithms')
+    print('## Value iteration')
+    policy, value = value_iteration(env, gamma, theta, max_iterations)
+    env.render(policy, value)
+
+    print('')
+
+    print('# Model-free algorithms')
     max_episodes = 2000
     eta = 0.5
     epsilon = 0.5
-    #
-    # print('')
-    #
-    # print('## Sarsa')
-    # policy, value = sarsa(env, max_episodes, eta, gamma, epsilon, seed=seed)
-    # env.render(policy, value)
-    #
-    # print('')
-    #
+
+    print('')
+
+    print('## Sarsa')
+    policy, value = sarsa(env, max_episodes, eta, gamma, epsilon, seed=seed)
+    env.render(policy, value)
+
+    print('')
+
     print('## Q-learning')
     policy, value = q_learning(env, max_episodes, eta, gamma, epsilon, seed=seed)
     env.render(policy, value)
