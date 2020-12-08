@@ -284,8 +284,34 @@ def linear_sarsa(env, max_episodes, eta, gamma, epsilon, seed=None):
         q = features.dot(theta)
 
         # TODO:
+
+        if random.uniform(0, 1) > (epsilon[i]): 
+          a = random_state.randint(env.n_actions) 
+
+        else:
+          a = np.argmax(q)
         
+        terminal = False
         
+        while not terminal:
+            next_s,  r, terminal=  env.step(a)
+            
+            delta = r - q[a]
+            
+            q = next_s.dot(theta)
+            
+            if random.uniform(0, 1) > (epsilon[i]):
+                a_new = random_state.randint(env.n_actions)
+                              
+            else:
+                a_new = np.argmax(q)  
+        
+            delta = delta + (gamma * max(q))
+            
+            theta = theta + eta[i] * delta * features[a]
+            
+            features = next_s
+            a = a_new
 
     return theta
 
@@ -304,30 +330,26 @@ def linear_q_learning(env, max_episodes, eta, gamma, epsilon, seed=None):
 
         # TODO:
       
-        #q = np.zeros((env.n_states, env.features[i]))
+        q = np.zeros((env.n_states, env.n_features))      
         q = features.dot(theta)
-        
 
         terminal = False
         
         while not terminal:
             if random.uniform(0, 1) < (1 - epsilon[i]): 
-                a = np.argmax(q)
+               a = random_state.randint(env.n_actions)
             else:
-                a = random_state.randint(env.n_actions)
-        
+               a = np.argmax(q)
         
             next_s,  r, terminal=  env.step(a)
             
-            delta = r - q
+            delta = r - q[a]
+     
+            q= next_s.dot(theta)
             
-            q_new = next_s.dot(theta)
-            
-            delta = delta + gamma * max(q_new)*  q_new
-            
-            test = delta * features[a]
-            
-            theta = theta + (eta[i] * delta *  features[a])
+            delta = delta + (gamma * max(q))
+                     
+            theta = theta + (eta[i] *  delta * features[a])
             
             features = next_s
         
