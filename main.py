@@ -1,4 +1,5 @@
 from frozen_lake import FrozenLake
+from Big_frozen_lake import BigFrozenLake
 import numpy as np
 import random
 
@@ -90,7 +91,7 @@ def policy_iteration(env, gamma, theta, max_iterations, policy=None):
     #     value = new_value
 
 
-
+    index = 0
 
     policy_stable = False
     while policy_stable == False:
@@ -100,7 +101,12 @@ def policy_iteration(env, gamma, theta, max_iterations, policy=None):
         for i in range(len(new_policy)):
             if policy[i] != new_policy[i]:
                 policy_stable = False
-        policy = new_policy
+                
+        policy = new_policy     
+        index = index + 1
+
+    print(index)
+        
 
 
 
@@ -128,6 +134,7 @@ def policy_iteration(env, gamma, theta, max_iterations, policy=None):
 
 
 def value_iteration(env, gamma, theta, max_iterations, value=None):
+    index = 0
     if value is None:
         value = np.zeros(env.n_states)
     else:
@@ -141,18 +148,21 @@ def value_iteration(env, gamma, theta, max_iterations, value=None):
             value[s] = max([sum(
                 [env.p(next_s, s, a) * (env.r(next_s, s, a) + gamma * value[next_s]) for next_s in range(env.n_states)])
                 for a in range(env.n_actions)])
-
+            
             delta = max(delta, np.abs(v - value[s]))
 
         if delta < theta:
             break
-
+        
+        index = index + 1
+        
     policy = np.zeros(env.n_states, dtype=int)
     for s in range(env.n_states):
         policy[s] = np.argmax([sum(
             [env.p(next_s, s, a) * (env.r(next_s, s, a) + gamma * value[next_s]) for next_s in range(env.n_states)]) for
             a in range(env.n_actions)])
-
+    
+    print(index)
     return policy, value
 
 
@@ -342,8 +352,8 @@ def main():
                 ['.', '#', '.', '.','#', '.', '#', '.'],
                 ['.', '.', '.', '#','.', '.', '.', '$']]
 
-    env = FrozenLake(lake, slip=0.1, max_steps=16, seed=seed)
-
+    #env = FrozenLake(lake, slip=0.1, max_steps=16, seed=seed)
+    env = BigFrozenLake(big_lake, slip=0.1, max_steps=64, seed=seed)
     # play(env)
 
     print('# Model-based algorithms')
@@ -365,25 +375,25 @@ def main():
 
     print('')
 
-    print('# Model-free algorithms')
-    max_episodes = 2000
-    eta = 0.5
-    epsilon = 0.5
+    # print('# Model-free algorithms')
+    # max_episodes = 2000
+    # eta = 0.5
+    # epsilon = 0.5
 
-    print('')
+    # print('')
 
-    print('## Sarsa')
-    policy, value = sarsa(env, max_episodes, eta, gamma, epsilon, seed=seed, optimal_pol=None)
-    env.render(policy, value)
+    # print('## Sarsa')
+    # policy, value = sarsa(env, max_episodes, eta, gamma, epsilon, seed=seed, optimal_pol=None)
+    # env.render(policy, value)
 
-    print('')
+    # print('')
 
-    print('## Q-learning')
-    policy, value = q_learning(env, max_episodes, eta, gamma, epsilon, seed=seed, optimal_pol=None)
-    env.render(policy, value)
+    # print('## Q-learning')
+    # policy, value = q_learning(env, max_episodes, eta, gamma, epsilon, seed=seed, optimal_pol=None)
+    # env.render(policy, value)
 
-    print('')
-    #
+    # print('')
+    # #
     # linear_env = LinearWrapper(env)
     #
     # print('## Linear Sarsa')
