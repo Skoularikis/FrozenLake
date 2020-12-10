@@ -43,28 +43,15 @@ class FrozenLake(Environment):
         for state_index, state in enumerate(self.itos):
             for action_index, action in enumerate(self.actions):
                 next_state = (state[0] + action[0], state[1] + action[1])
-
                 if (state_index == 5 or state_index == 7 or state_index == 12 or state_index == 11 or state_index == 15):
                     self._p[state_index, state_index, action_index] = 1.0
                 else:
-                    # If next_state is not valid, default to current state index
                     next_state_index = self.stoi.get(next_state, state_index)
-                    # self._p[next_state_index, state_index, action_index] = 1.0
-                    if next_state_index == state_index:
-                        self._p[next_state_index, state_index, action_index] = 1
-                    else:
-                        self._p[next_state_index, state_index, action_index] = 1 - self.slip
-
-            a = np.array(self._p[:,state_index])
-            unique, counts = np.unique(self._p[:,state_index], return_counts=True)
-            my_dict = dict(zip(unique, counts))
-            for idx, ai in enumerate(a):
-                if 1-self.slip in ai:
-                    for qd in range(0, 4):
-                        if 1-self.slip in a[:, qd] and a[:, qd][idx] == 0.0:
-                            if (1-self.slip in my_dict):
-                                a[:, qd][idx] = self.slip / (my_dict[1-self.slip] - 1)
-            self._p[:,state_index] = a
+                    self._p[next_state_index, state_index, action_index] = 1 - self.slip
+                    for act in self.actions:
+                        next_state_action = (state[0] + act[0], state[1] + act[1])
+                        next_state_index = self.stoi.get(next_state_action, state_index)
+                        self._p[next_state_index, state_index, action_index] += self.slip/4
 
     def step(self, action):
         state, reward, done = Environment.step(self, action)
