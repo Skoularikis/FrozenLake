@@ -158,7 +158,7 @@ def value_iteration(env, gamma, theta, max_iterations, value=None):
 
 ################ Tabular model-free algorithms ################
 
-def sarsa(env, max_episodes, eta, gamma, epsilon, seed=None):
+def sarsa(env, max_episodes, eta, gamma, epsilon, seed=None, optimal_pol=None):
     random_state = np.random.RandomState(seed)
     eta = np.linspace(eta, 0, max_episodes)
     epsilon = np.linspace(epsilon, 0, max_episodes)
@@ -170,6 +170,8 @@ def sarsa(env, max_episodes, eta, gamma, epsilon, seed=None):
         a = e_greedy(q[s], epsilon[i], env.n_actions, random_state)
 
         # Select action a for state s according to an e-greedy policy based on Q. by random
+        policy = q.argmax(axis=1)
+
         while not terminal:
             next_s, r, terminal = env.step(a)
             next_a = e_greedy(q[next_s], epsilon[i], env.n_actions, random_state)
@@ -177,13 +179,17 @@ def sarsa(env, max_episodes, eta, gamma, epsilon, seed=None):
             s = next_s
             a = next_a
 
+        if (all(policy == optimal_pol)):
+            print(i)
+            break
+
     policy = q.argmax(axis=1)
     value = q.max(axis=1)
 
     return policy, value
 
 
-def q_learning(env, max_episodes, eta, gamma, epsilon, seed=None):
+def q_learning(env, max_episodes, eta, gamma, epsilon, seed=None, optimal_pol=None):
     random_state = np.random.RandomState(seed)
 
     eta = np.linspace(eta, 0, max_episodes)
@@ -192,13 +198,18 @@ def q_learning(env, max_episodes, eta, gamma, epsilon, seed=None):
     for i in range(max_episodes):
         s = env.reset()
         terminal = False
+        policy = q.argmax(axis=1)
+
         while not terminal:
             a = e_greedy(q[s], epsilon[i], env.n_actions, random_state)
             next_s, r, terminal = env.step(a)
             next_a = np.argmax(q[next_s])
             q[s][a] = q[s][a] + eta[i] * (r + (gamma * q[next_s][next_a]) - q[s][a])
             s = next_s
-        
+
+        if (all(policy == optimal_pol)):
+            print(i)
+            break
     policy = q.argmax(axis=1)
     value = q.max(axis=1)
 
@@ -315,7 +326,7 @@ def e_greedy(q,epsilon,n_actions, random_state):
 
 def main():
     seed = 0
-
+    
     # Small lake
     lake = [['&', '.', '.', '.'],
             ['.', '#', '.', '#'],
@@ -353,34 +364,34 @@ def main():
     print('')
 
     print('## Sarsa')
-    policy, value = sarsa(env, max_episodes, eta, gamma, epsilon, seed=seed)
+    policy, value = sarsa(env, max_episodes, eta, gamma, epsilon, seed=seed, optimal_pol=None)
     env.render(policy, value)
 
     print('')
 
     print('## Q-learning')
-    policy, value = q_learning(env, max_episodes, eta, gamma, epsilon, seed=seed)
+    policy, value = q_learning(env, max_episodes, eta, gamma, epsilon, seed=seed, optimal_pol=None)
     env.render(policy, value)
 
     print('')
-
-    linear_env = LinearWrapper(env)
-
-    print('## Linear Sarsa')
-
-    parameters = linear_sarsa(linear_env, max_episodes, eta,
-                              gamma, epsilon, seed=seed)
-    policy, value = linear_env.decode_policy(parameters)
-    linear_env.render(policy, value)
-
-    print('')
-
-    print('## Linear Q-learning')
-
-    parameters = linear_q_learning(linear_env, max_episodes, eta,
-                                    gamma, epsilon, seed=seed)
-    policy, value = linear_env.decode_policy(parameters)
-    linear_env.render(policy, value)
+    #
+    # linear_env = LinearWrapper(env)
+    #
+    # print('## Linear Sarsa')
+    #
+    # parameters = linear_sarsa(linear_env, max_episodes, eta,
+    #                           gamma, epsilon, seed=seed)
+    # policy, value = linear_env.decode_policy(parameters)
+    # linear_env.render(policy, value)
+    #
+    # print('')
+    #
+    # print('## Linear Q-learning')
+    #
+    # parameters = linear_q_learning(linear_env, max_episodes, eta,
+    #                                 gamma, epsilon, seed=seed)
+    # policy, value = linear_env.decode_policy(parameters)
+    # linear_env.render(policy, value)
 
 
 if __name__ == "__main__":
