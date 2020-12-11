@@ -6,7 +6,7 @@ import numpy as np
 from environment import Environment
 
 
-class BigFrozenLake(Environment):
+class big_frozen_lake(Environment):
     def __init__(self, lake, slip, max_steps, seed=None):
         """
         lake: A matrix that represents the lake. For example:
