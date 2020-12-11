@@ -3,6 +3,7 @@ from big_frozen_lake import big_frozen_lake
 import numpy as np
 import random
 
+
 def play(env):
     # up, left, bottom, right
     actions = ['w', 'a', 's', 'd']
@@ -45,7 +46,9 @@ def policy_improvement(env, value, gamma, policy):
     policy_stable = True
     for s in range(env.n_states):
         pol = policy[s].copy()
-        v = [sum([env.p(next_s, s, a) * (env.r(next_s, s, a) + gamma * value[next_s]) for next_s in range(env.n_states)]) for a in range(env.n_actions)]
+        v = [
+            sum([env.p(next_s, s, a) * (env.r(next_s, s, a) + gamma * value[next_s]) for next_s in range(env.n_states)])
+            for a in range(env.n_actions)]
         policy[s] = np.argmax(v)
         if pol != policy[s]:
             policy_stable = False
@@ -81,27 +84,27 @@ def value_iteration(env, gamma, theta, max_iterations, value=None):
             value[s] = max([sum(
                 [env.p(next_s, s, a) * (env.r(next_s, s, a) + gamma * value[next_s]) for next_s in range(env.n_states)])
                 for a in range(env.n_actions)])
-            
+
             delta = max(delta, np.abs(v - value[s]))
 
         if delta < theta:
             break
-        
+
         index = index + 1
-        
+
     policy = np.zeros(env.n_states, dtype=int)
     for s in range(env.n_states):
         policy[s] = np.argmax([sum(
             [env.p(next_s, s, a) * (env.r(next_s, s, a) + gamma * value[next_s]) for next_s in range(env.n_states)]) for
             a in range(env.n_actions)])
-    
+
     print(index)
     return policy, value
 
 
 ################ Tabular model-free algorithms ################
 
-def sarsa(env, max_episodes, eta, gamma, epsilon, seed=None, optimal_value=None, find_episodes = False):
+def sarsa(env, max_episodes, eta, gamma, epsilon, seed=None, optimal_value=None, find_episodes=False):
     random_state = np.random.RandomState(seed)
     eta = np.linspace(eta, 0, max_episodes)
     epsilon = np.linspace(epsilon, 0, max_episodes)
@@ -124,7 +127,7 @@ def sarsa(env, max_episodes, eta, gamma, epsilon, seed=None, optimal_value=None,
             value_new = policy_evaluation(env, q.argmax(axis=1), gamma, theta=0.001, max_iterations=200)
             if all(abs(optimal_value[i] - value_new[i]) < 0.001 for i in range(len(value_new))):
                 print('Episodes to find the optimal policy: ' + str(i))
-                return q.argmax(axis=1), q.max(axis=1)
+                return q.argmax(axis=1), value_new
 
     policy = q.argmax(axis=1)
     value = q.max(axis=1)
@@ -132,8 +135,7 @@ def sarsa(env, max_episodes, eta, gamma, epsilon, seed=None, optimal_value=None,
     return policy, value
 
 
-def q_learning(env, max_episodes, eta, gamma, epsilon, seed=None, optimal_value=None, find_episodes = False):
-
+def q_learning(env, max_episodes, eta, gamma, epsilon, seed=None, optimal_value=None, find_episodes=False):
     random_state = np.random.RandomState(seed)
     eta = np.linspace(eta, 0, max_episodes)
     epsilon = np.linspace(epsilon, 0, max_episodes)
@@ -152,7 +154,7 @@ def q_learning(env, max_episodes, eta, gamma, epsilon, seed=None, optimal_value=
             value_new = policy_evaluation(env, q.argmax(axis=1), gamma, theta=0.001, max_iterations=200)
             if all(abs(optimal_value[i]-value_new[i]) < 0.001 for i in range(len(value_new))):
                 print('Episodes to find the optimal policy: ' + str(i))
-                return q.argmax(axis=1), q.max(axis=1)
+                return q.argmax(axis=1), value_new
 
     policy = q.argmax(axis=1)
     value = q.max(axis=1)
@@ -217,11 +219,11 @@ def linear_sarsa(env, max_episodes, eta, gamma, epsilon, seed=None):
         a = e_greedy(q, epsilon[i], env.n_actions, random_state)
         terminal = False
         while not terminal:
-            next_s,  r, terminal=  env.step(a)
+            next_s, r, terminal = env.step(a)
             delta = r - q[a]
             q = next_s.dot(theta)
             a_new = e_greedy(q, epsilon[i], env.n_actions, random_state)
-        
+
             delta = delta + (gamma * max(q))
             theta = theta + eta[i] * delta * features[a]
             features = next_s
@@ -237,29 +239,37 @@ def linear_q_learning(env, max_episodes, eta, gamma, epsilon, seed=None):
     epsilon = np.linspace(epsilon, 0, max_episodes)
 
     theta = np.zeros(env.n_features)
-    
-    
+
     for i in range(max_episodes):
         features = env.reset()
         q = features.dot(theta)
         terminal = False
-        
+
         while not terminal:
             a = e_greedy(q, epsilon[i], env.n_actions, random_state)
-            next_s,  r, terminal = env.step(a)
+            next_s, r, terminal = env.step(a)
             delta = r - q[a]
-            q= next_s.dot(theta)
+            q = next_s.dot(theta)
             delta = delta + (gamma * max(q))
             theta = theta + (eta[i] * delta * features[a])
             features = next_s
     return theta
 
-def e_greedy(q,epsilon,n_actions, random_state):
+
+def e_greedy(q, epsilon, n_actions, random_state):
     if random.uniform(0, 1) < epsilon:
         a = random_state.choice(np.flatnonzero(q == q.max()))
     else:
         a = random_state.randint(n_actions)
     return a
+
+
+def optimal_policy_episodes(env, q, optimal_value, episode, gamma, theta=0.001, max_iterations=200):
+    value_new = policy_evaluation(env, q.argmax(axis=1), gamma, theta, max_iterations)
+    if all(abs(optimal_value[i] - value_new[i]) < 0.001 for i in range(len(value_new))):
+        print('Episodes to find the optimal policy: ' + str(episode))
+        return q.argmax(axis=1), value_new
+
 
 def main():
     seed = 0
@@ -269,15 +279,15 @@ def main():
             ['.', '#', '.', '#'],
             ['.', '.', '.', '#'],
             ['#', '.', '.', '$']]
-    
-    big_lake = [['&', '.', '.', '.','.', '.', '.', '.'],
-                ['.', '.', '.', '.','.', '.', '.', '.'],
-                ['.', '.', '.', '#','.', '.', '.', '.'],
-                ['.', '.', '.', '.','.', '#', '.', '.'],
-                ['.', '.', '.', '#','.', '.', '.', '.'],
-                ['.', '#', '#', '.','.', '.', '#', '.'],
-                ['.', '#', '.', '.','#', '.', '#', '.'],
-                ['.', '.', '.', '#','.', '.', '.', '$']]
+
+    big_lake = [['&', '.', '.', '.', '.', '.', '.', '.'],
+                ['.', '.', '.', '.', '.', '.', '.', '.'],
+                ['.', '.', '.', '#', '.', '.', '.', '.'],
+                ['.', '.', '.', '.', '.', '#', '.', '.'],
+                ['.', '.', '.', '#', '.', '.', '.', '.'],
+                ['.', '#', '#', '.', '.', '.', '#', '.'],
+                ['.', '#', '.', '.', '#', '.', '#', '.'],
+                ['.', '.', '.', '#', '.', '.', '.', '$']]
 
     env = FrozenLake(lake, slip=0.1, max_steps=16, seed=seed)
     # env = big_frozen_lake(big_lake, slip=0.1, max_steps=64, seed=seed)
@@ -312,7 +322,8 @@ def main():
     print('')
 
     print('## Sarsa')
-    policy, value = sarsa(env, max_episodes, eta, gamma, epsilon, seed=seed, optimal_value=opt_value, find_episodes=True)
+    policy, value = sarsa(env, max_episodes, eta, gamma, epsilon, seed=seed, optimal_value=opt_value,
+                          find_episodes=True)
     env.render(policy, value)
 
     print(value)
@@ -320,7 +331,8 @@ def main():
     print('')
 
     print('## Q-learning')
-    policy, value = q_learning(env, max_episodes, eta, gamma, epsilon, seed=seed, optimal_value=opt_value, find_episodes=True)
+    policy, value = q_learning(env, max_episodes, eta, gamma, epsilon, seed=seed, optimal_value=opt_value,
+                               find_episodes=True)
     env.render(policy, value)
 
     print('')
