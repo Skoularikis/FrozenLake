@@ -3,21 +3,6 @@ from big_frozen_lake import big_frozen_lake
 import numpy as np
 import random
 
-BIG_LAKE_ROWS = 8
-BIG_LAKE_COLS = 8
-
-SMALL_LAKE_ROWS = 4
-BIG_LAKE_ROWS = 4
-
-BIG_LAKE_GOAL = (7, 7)
-SMALL_LAKE_GOAL = (3, 3)
-
-START = (0, 0)
-
-SMALL_LAKE_ABS = [(1, 1), (1, 3), (2, 3), (3, 0)]
-BIG_LAKE_ABS = [(2, 3), (3, 5), (4, 3), (5, 1), (5, 2), (5, 6), (6, 1), (6, 4), (6, 6), (7, 3)]
-
-
 def play(env):
     # up, left, bottom, right
     actions = ['w', 'a', 's', 'd']
@@ -56,30 +41,29 @@ def policy_evaluation(env, policy, gamma, theta, max_iterations):
     return value
 
 
-def policy_improvement(env, value, gamma):
-    policy = np.zeros(env.n_states, dtype=int)
+def policy_improvement(env, value, gamma, policy):
+    policy_stable = True
     for s in range(env.n_states):
+        pol = policy[s].copy()
         v = [sum([env.p(next_s, s, a) * (env.r(next_s, s, a) + gamma * value[next_s]) for next_s in range(env.n_states)]) for a in range(env.n_actions)]
         policy[s] = np.argmax(v)
-    return policy
+        if pol != policy[s]:
+            policy_stable = False
+    return policy_stable
 
 
 def policy_iteration(env, gamma, theta, max_iterations, policy=None):
+    value = np.zeros(env.n_states, dtype=int)
     if policy is None:
         policy = np.zeros(env.n_states, dtype=int)
     else:
         policy = np.array(policy, dtype=int)
-    index = 0
     policy_stable = False
-    while policy_stable == False:
-        policy_stable = True
+    index = 0
+    while not policy_stable:
         value = policy_evaluation(env, policy, gamma, theta, max_iterations)
-        new_policy = policy_improvement(env, value, gamma)
-        for i in range(len(new_policy)):
-            if policy[i] != new_policy[i]:
-                policy_stable = False
-        policy = new_policy     
-        index = index + 1
+        policy_stable = policy_improvement(env, value, gamma, policy)
+        index += 1
     print(index)
     return policy, value
 
@@ -276,7 +260,6 @@ def e_greedy(q,epsilon,n_actions, random_state):
         a = random_state.randint(n_actions)
     return a
 
-
 def main():
     seed = 0
 
@@ -295,8 +278,8 @@ def main():
                 ['.', '#', '.', '.','#', '.', '#', '.'],
                 ['.', '.', '.', '#','.', '.', '.', '$']]
 
-    env = FrozenLake(lake, slip=0.1, max_steps=16, seed=seed)
-    # env = big_frozen_lake(big_lake, slip=0.1, max_steps=64, seed=seed)
+    # env = FrozenLake(lake, slip=0.1, max_steps=16, seed=seed)
+    env = big_frozen_lake(big_lake, slip=0.1, max_steps=64, seed=seed)
     # play(env)
 
     print('# Model-based algorithms')
@@ -323,21 +306,21 @@ def main():
     eta = 0.5
     epsilon = 0.5
 
-    print('')
-
-    print('## Sarsa')
-    policy, value = sarsa(env, max_episodes, eta, gamma, epsilon, seed=seed, optimal_pol=None)
-    env.render(policy, value)
-
-    print('')
-
-    print('## Q-learning')
-    policy, value = q_learning(env, max_episodes, eta, gamma, epsilon, seed=seed, optimal_pol=None)
-    env.render(policy, value)
-
-    print('')
-
-    # #
+    # print('')
+    #
+    # print('## Sarsa')
+    # policy, value = sarsa(env, max_episodes, eta, gamma, epsilon, seed=seed, optimal_pol=None)
+    # env.render(policy, value)
+    #
+    # print('')
+    #
+    # print('## Q-learning')
+    # policy, value = q_learning(env, max_episodes, eta, gamma, epsilon, seed=seed, optimal_pol=None)
+    # env.render(policy, value)
+    #
+    # print('')
+    #
+    #
     # linear_env = LinearWrapper(env)
     #
     # print('## Linear Sarsa')
